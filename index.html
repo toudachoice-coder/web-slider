@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>شريط الاعتمادات</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+    />
+    <style>
+      :root {
+        color-scheme: only light;
+        --gradient-start: #04c1c7;
+        --gradient-end: #1f7ad2;
+        --card-bg: #ffffff;
+        --shadow: 0 18px 40px rgba(0, 72, 130, 0.18);
+        --text-color: #0e3750;
+        --muted: #5c7c92;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #f2f9ff 0%, #e6f3fb 100%);
+        font-family: "Tajawal", "Segoe UI", sans-serif;
+        color: var(--text-color);
+      }
+
+      .page-wrapper {
+        width: 92vw;
+        max-width: 960px;
+        padding: 16px;
+        padding: clamp(16px, 4vw, 32px);
+      }
+
+      .notice-card {
+        border-radius: 28px;
+        background: var(--card-bg);
+        box-shadow: var(--shadow);
+        padding: 24px;
+        padding: clamp(24px, 5vw, 42px);
+        display: grid;
+        gap: clamp(18px, 3vw, 28px);
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .notice-card::before {
+        content: "";
+        position: absolute;
+        inset: -60% -20% auto;
+        height: 280px;
+        background: radial-gradient(
+          circle at center,
+          rgba(31, 122, 210, 0.14) 0%,
+          transparent 70%
+        );
+        z-index: -1;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .card-title {
+        font-size: 22px;
+        font-size: clamp(20px, 5vw, 26px);
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .card-subtitle {
+        font-size: 15px;
+        font-size: clamp(14px, 3.5vw, 16px);
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .strip-window {
+        position: relative;
+        border-radius: 999px;
+        border: 1px solid rgba(4, 193, 199, 0.2);
+        background: linear-gradient(90deg, rgba(4, 193, 199, 0.12), rgba(4, 193, 199, 0));
+        padding: 14px 16px;
+        padding: clamp(14px, 3vw, 18px) clamp(12px, 3vw, 24px);
+        overflow: hidden;
+      }
+
+      .strip-window::before,
+      .strip-window::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: clamp(48px, 10vw, 80px);
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .strip-window::before {
+        right: 0;
+        background: linear-gradient(270deg, var(--card-bg), transparent);
+      }
+
+      .strip-window::after {
+        left: 0;
+        background: linear-gradient(90deg, var(--card-bg), transparent);
+      }
+
+      .strip-track {
+        display: flex;
+        gap: 28px;
+        gap: clamp(24px, 6vw, 48px);
+        width: max-content;
+        animation: scroll 32s linear infinite;
+      }
+
+      .strip-track:hover {
+        animation-play-state: paused;
+      }
+
+      .badge {
+        width: 96px;
+        width: clamp(72px, 13vw, 104px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: linear-gradient(145deg, rgba(4, 193, 199, 0.18), rgba(31, 122, 210, 0.14));
+        border: 1px solid rgba(31, 122, 210, 0.35);
+        display: grid;
+        place-items: center;
+        padding: 12px;
+        padding: clamp(10px, 2.4vw, 18px);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        backdrop-filter: blur(6px);
+      }
+
+      .badge:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(31, 122, 210, 0.25);
+      }
+
+      .badge img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (max-width: 900px) {
+        body {
+          padding: 32px 0;
+        }
+
+        .page-wrapper {
+          width: 96vw;
+        }
+
+        .card-header {
+          gap: 12px;
+        }
+
+        .strip-window::before,
+        .strip-window::after {
+          width: clamp(32px, 8vw, 56px);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .page-wrapper {
+          padding: 12px;
+        }
+
+        .notice-card {
+          border-radius: 22px;
+          padding: 20px;
+        }
+
+        .card-header {
+          align-items: flex-start;
+        }
+
+        .card-title {
+          font-size: 20px;
+        }
+
+        .card-subtitle {
+          font-size: 14px;
+        }
+
+        .strip-track {
+          gap: 24px;
+        }
+
+        .badge {
+          width: 82px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .notice-card {
+          padding: 18px;
+        }
+
+        .card-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .strip-window {
+          padding: 12px 14px;
+        }
+
+        .badge {
+          width: 72px;
+        }
+      }
+
+      @media (hover: none) {
+        .strip-track {
+          animation-play-state: running !important;
+        }
+
+        .badge:hover {
+          transform: none;
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .strip-track {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <section class="notice-card" aria-label="جهات الاعتماد والشهادات">
+        <header class="card-header">
+          <h2 class="card-title">جهات نعتمد عليها</h2>
+          <p class="card-subtitle">علامات ثقة من مؤسسات محلية ودولية</p>
+        </header>
+        <div class="strip-window" role="list">
+          <div class="strip-track">
+            <div class="badge" role="listitem">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/4-2.png"
+                alt="وزارة الفلاحة المغربية"
+              />
+            </div>
+            <div class="badge" role="listitem">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/5.png"
+                alt="المكتب الوطني للسلامة الصحية للمنتجات الغذائية"
+              />
+            </div>
+            <div class="badge" role="listitem">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/3-2.png"
+                alt="شهادة الفلاحة البيولوجية"
+              />
+            </div>
+            <div class="badge" role="listitem">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/30.png"
+                alt="شهادة دولية للجودة"
+              />
+            </div>
+            <div class="badge" aria-hidden="true">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/4-2.png"
+                alt=""
+              />
+            </div>
+            <div class="badge" aria-hidden="true">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/5.png"
+                alt=""
+              />
+            </div>
+            <div class="badge" aria-hidden="true">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/3-2.png"
+                alt=""
+              />
+            </div>
+            <div class="badge" aria-hidden="true">
+              <img
+                src="https://cdn.zenamoroccan.com/image/catalog/Homepage/AuthorizedBy/30.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
